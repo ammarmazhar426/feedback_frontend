@@ -1,0 +1,39 @@
+replicaCount: 2
+
+image:
+  repository: ammar456/feed-front-img
+  pullPolicy: Always
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: cloudwithammar.com
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: www.cloudwithammar.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: feedback-frontend-tls
+      hosts:
+        - cloudwithammar.com
+        - www.cloudwithammar.com
+
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "50m"
+  limits:
+    memory: "128Mi"
+    cpu: "200m"

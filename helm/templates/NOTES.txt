@@ -1,0 +1,4 @@
+App successfully deployed!
+
+Get the application URL:
+  https://172.209.216.218.nip.io
